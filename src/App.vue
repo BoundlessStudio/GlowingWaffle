@@ -22,11 +22,11 @@ const userStore = useUserStore()
                 Dashboard
               </router-link>
               <router-link 
-                to="/ephemerals" 
+                to="/about" 
                 class="text-gray-900 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                :class="{ 'bg-gray-100': $route.name === 'ephemerals' }"
+                :class="{ 'bg-gray-100': $route.name === 'about' }"
               >
-                Ephemerals
+                About
               </router-link>
             </div>
           </div>

@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView.vue'
+import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: DashboardView
+      name: 'home',
+      component: HomeView
     },
     {
-      path: '/ephemerals',
-      name: 'ephemerals',
-      component: () => import('../views/EphemeralView.vue')
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue')
     }
   ]
 })

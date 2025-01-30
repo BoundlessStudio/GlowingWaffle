@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 import { useAuth0 } from '@auth0/auth0-vue'
 
 export const useUserStore = defineStore('user', () => {
-  const { user, isLoading, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { isLoading, isAuthenticated, loginWithRedirect, logout } = useAuth0() // user, 
   
   function loginHandler() {
     loginWithRedirect()
@@ -16,7 +15,8 @@ export const useUserStore = defineStore('user', () => {
   return {
     isLoading,
     isAuthenticated,
-    login: logoutHandler,
+    // user
+    login: loginHandler,
     logout: logoutHandler
   }
 })
