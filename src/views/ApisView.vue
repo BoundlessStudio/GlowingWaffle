@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import Container from '../components/Container.vue'
 
 const router = useRouter()
 const apis = ref([
   {
     id: 1,
     name: 'Payment API',
-    endpoint: 'https://api.example.com/v1/payments',
+    baseUrl: 'api.example.com',
     status: 'active',
-    version: '1.0.0',
-    requests: '500K/day'
+    ttl: '24h',
+    usage: '1000/day',
+    claims: true
   },
   {
     id: 2,
     name: 'User API',
-    endpoint: 'https://api.example.com/v1/users',
-    status: 'active',
-    version: '2.1.0',
-    requests: '250K/day'
+    baseUrl: 'api.example.com',
+    status: 'paused',
+    ttl: '12h',
+    usage: '500/day',
+    claims: false
   }
 ])
 
@@ -34,45 +37,70 @@ const configureApi = (id: number) => {
 </script>
 
 <template>
-  <div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-semibold text-gray-900">APIs</h1>
-        <button
-          class="bg-purple-900 hover:bg-purple-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-        >
-          Register API
-        </button>
-      </div>
+  <Container>
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-semibold text-gray-900">APIs</h1>
+      <button
+        class="bg-purple-900 hover:bg-purple-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+      >
+        Register API
+      </button>
+    </div>
 
-      <!-- APIs Grid -->
-      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div v-for="api in apis" :key="api.id" class="bg-white shadow rounded-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-center justify-between">
+    <!-- APIs Grid -->
+    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div v-for="api in apis" :key="api.id" class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="space-y-4">
+            <!-- Header with icon -->
+            <div class="flex items-center space-x-3">
+              <div class="flex-shrink-0 w-8 h-8 bg-gray-900 rounded"></div>
               <h3 class="text-lg font-medium text-gray-900">{{ api.name }}</h3>
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                {{ api.status }}
-              </span>
             </div>
-            <div class="mt-4 space-y-2">
+
+            <!-- Card body -->
+            <div class="space-y-3">
               <p class="text-sm text-gray-500">
-                <span class="font-medium">Endpoint:</span>
-                <code class="ml-2 bg-gray-100 px-2 py-1 rounded text-xs">{{ api.endpoint }}</code>
+                <span class="font-medium">Base URL:</span>
+                <code class="ml-2 bg-gray-100 px-2 py-1 rounded text-xs">{{ api.baseUrl }}</code>
               </p>
               <p class="text-sm text-gray-500">
-                <span class="font-medium">Version:</span>
-                <span class="ml-2">{{ api.version }}</span>
+                <span class="font-medium">TTL:</span>
+                <span class="ml-2">{{ api.ttl }}</span>
               </p>
               <p class="text-sm text-gray-500">
-                <span class="font-medium">Requests:</span>
-                <span class="ml-2">{{ api.requests }}</span>
+                <span class="font-medium">Usage:</span>
+                <span class="ml-2">{{ api.usage }}</span>
+              </p>
+              <p class="text-sm text-gray-500">
+                <span class="font-medium">Status:</span>
+                <span class="ml-2">
+                  <span :class="[
+                    api.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800',
+                    'px-2 py-1 text-xs font-semibold rounded-full'
+                  ]">
+                    {{ api.status }}
+                  </span>
+                </span>
+              </p>
+              <p class="text-sm text-gray-500">
+                <span class="font-medium">Claims:</span>
+                <span class="ml-2">
+                  <span :class="[
+                    api.claims ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800',
+                    'px-2 py-1 text-xs font-semibold rounded-full'
+                  ]">
+                    {{ api.claims ? 'Enabled' : 'Disabled' }}
+                  </span>
+                </span>
               </p>
             </div>
-            <div class="mt-6 flex space-x-3">
+
+            <!-- Card footer -->
+            <div class="pt-2">
               <button 
                 @click="configureApi(api.id)"
-                class="flex-1 bg-purple-100 text-purple-900 hover:bg-purple-200 px-4 py-2 rounded text-sm font-medium transition-colors"
+                class="w-full bg-purple-100 text-purple-900 hover:bg-purple-200 px-4 py-2 rounded text-sm font-medium transition-colors"
               >
                 Configure
               </button>
@@ -81,5 +109,5 @@ const configureApi = (id: number) => {
         </div>
       </div>
     </div>
-  </div>
+  </Container>
 </template>

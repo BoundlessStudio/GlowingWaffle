@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import Container from '../components/Container.vue'
 
 const apiKeys = ref([
   {
@@ -35,8 +36,7 @@ const revokeKey = (id: number) => {
 </script>
 
 <template>
-  <div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <Container>
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-semibold text-gray-900">API Keys</h1>
         <button
@@ -92,6 +92,5 @@ const revokeKey = (id: number) => {
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
+    </Container>
 </template>

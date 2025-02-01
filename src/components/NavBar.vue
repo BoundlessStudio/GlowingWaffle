@@ -3,7 +3,7 @@
 
 <template>
   <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <a href="https://ephemerals.dev/" class=" text-2xl font-bold text-purple-900">Ephemerals</a>
