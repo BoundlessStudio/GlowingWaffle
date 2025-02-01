@@ -149,7 +149,7 @@ const deleteApi = () => {
           <!-- Basic Configuration -->
           <div class="bg-white shadow-sm rounded-lg">
             <div class="px-4 py-5 sm:p-6">
-              <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Configuration</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Configuration</h3>
               <div class="grid grid-cols-1 gap-6">
                 <div>
                   <label class="block text-base font-medium text-gray-700 mb-1">Endpoint</label>
@@ -197,7 +197,7 @@ const deleteApi = () => {
           <!-- Middleware Configuration -->
           <div class="bg-white shadow-sm rounded-lg">
             <div class="px-4 py-5 sm:p-6">
-              <h3 class="text-lg font-medium text-gray-900 mb-4">Middleware Configuration</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Middleware</h3>
               <div class="grid grid-cols-1 gap-6">
 
                 <div>
@@ -336,7 +336,7 @@ const deleteApi = () => {
           </div>
           
           
-          <!-- Middleware Configuration -->
+          <!-- Danger Zoner -->
           <div class="bg-white shadow-sm rounded-lg">
             <div class="px-4 py-5 sm:p-6">
               <h3 class="text-lg font-medium text-gray-900 mb-4">Danger Zoner</h3>
