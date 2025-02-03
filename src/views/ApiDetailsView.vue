@@ -8,9 +8,10 @@ const router = useRouter()
 const apiDetails = ref({
   id: 0,
   name: '',
+  key: '',
   status: 'active',
   endpoint: '',
-  ttl: '1h',
+  ttl: '5m',
   middleware: {
     limit: {
       enabled: false,
@@ -45,8 +46,9 @@ onMounted(async () => {
     id,
     name: 'Payment API',
     status: 'active',
+    key: '**************************',
     endpoint: 'https://api.example.com/v1/payments',
-    ttl: '1h',
+    ttl: '5m',
     middleware: {
       limit: {
         enabled: false,
@@ -190,8 +192,22 @@ const goToKeys = () => {
 
             <div class="flex">
               <div class="w-1/3">
+                <h4 class="text-sm font-medium text-gray-900">API Key</h4>
+                <p class="mt-1 text-sm text-gray-500">An API Key from the provider.</p>
+              </div>
+              <div class="w-2/3 pl-4">
+                <input
+                  type="text"
+                  v-model="apiDetails.key"
+                  class="block w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-base text-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                />
+              </div>
+            </div>
+
+            <div class="flex">
+              <div class="w-1/3">
                 <h4 class="text-sm font-medium text-gray-900">Status</h4>
-                <p class="mt-1 text-sm text-gray-500">Current operational status of the API.</p>
+                <p class="mt-1 text-sm text-gray-500">Current operational status of the Gateway.</p>
               </div>
               <div class="w-2/3 pl-4">
                 <select
