@@ -11,8 +11,7 @@ const apis = ref([
     baseUrl: 'api.example.com',
     status: 'active',
     ttl: '24h',
-    usage: '1000/day',
-    claims: true
+    usage: '1000/day'
   },
   {
     id: 2,
@@ -20,8 +19,7 @@ const apis = ref([
     baseUrl: 'api.example.com',
     status: 'paused',
     ttl: '12h',
-    usage: '500/day',
-    claims: false
+    usage: '500/day'
   }
 ])
 
@@ -54,7 +52,11 @@ const configureApi = (id: number) => {
           <div class="space-y-4">
             <!-- Header with icon -->
             <div class="flex items-center space-x-3">
-              <div class="flex-shrink-0 w-8 h-8 bg-gray-900 rounded"></div>
+              <div class="flex-shrink-0 w-8 h-8 bg-gray-100 text-black rounded flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                </svg>
+              </div>
               <h3 class="text-lg font-medium text-gray-900">{{ api.name }}</h3>
             </div>
 
@@ -80,17 +82,6 @@ const configureApi = (id: number) => {
                     'px-2 py-1 text-xs font-semibold rounded-full'
                   ]">
                     {{ api.status }}
-                  </span>
-                </span>
-              </p>
-              <p class="text-sm text-gray-500">
-                <span class="font-medium">Claims:</span>
-                <span class="ml-2">
-                  <span :class="[
-                    api.claims ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800',
-                    'px-2 py-1 text-xs font-semibold rounded-full'
-                  ]">
-                    {{ api.claims ? 'Enabled' : 'Disabled' }}
                   </span>
                 </span>
               </p>

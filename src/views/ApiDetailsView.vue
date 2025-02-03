@@ -7,11 +7,35 @@ const route = useRoute()
 const router = useRouter()
 const apiDetails = ref({
   id: 0,
-  name: '',
-  key: '',
+  name: 'Payment API',
   status: 'active',
-  endpoint: '',
+  key: '**************************',
+  endpoint: 'https://api.example.com/v1/payments',
   ttl: '5m',
+  isLeaked: false,
+  analytics: {
+    tokens: {
+      current: 10,
+    },
+    errorRate: {
+      current: 0.5,
+      trend: -0.2,
+    },
+    claims: {
+      current: 850,
+      max: 1000
+    },
+    limit: {
+      current: 85,
+      max: 100
+    },
+    latency: {
+      average: '120ms',
+      trend: -5,
+      min: '180ms',
+      max: '250ms'
+    }
+  },
   middleware: {
     limit: {
       enabled: false,
@@ -41,41 +65,67 @@ const apiDetails = ref({
 })
 
 onMounted(async () => {
-  const id = Number(route.params.id)
-  apiDetails.value = {
-    id,
-    name: 'Payment API',
-    status: 'active',
-    key: '**************************',
-    endpoint: 'https://api.example.com/v1/payments',
-    ttl: '5m',
-    middleware: {
-      limit: {
-        enabled: false,
-        value: 0
-      },
-      timeout: {
-        enabled: false,
-        value: 30
-      },
-      retries: {
-        enabled: false,
-        value: 3
-      },
-      throttling: {
-        enabled: false,
-        value: 100
-      },
-      logging: {
-        enabled: false,
-        type: 'inbound'
-      },
-      claims: {
-        enabled: false,
-        amount: 1000
-      }
-    }
-  }
+  apiDetails.value.id = Number(route.params.id)
+  // const id = Number(route.params.id)
+  // apiDetails.value = {
+  //   id,
+  //   name: 'Payment API',
+  //   status: 'active',
+  //   key: '**************************',
+  //   endpoint: 'https://api.example.com/v1/payments',
+  //   ttl: '5m',
+  //   isLeaked: false,
+  //   analytics: {
+  //     tokens: {
+  //       current: 100,
+  //       trend: -0.2,
+  //     },
+  //     errorRate: {
+  //       current: 0.5,
+  //       trend: 1
+  //     },
+  //     claims: {
+  //       current: 850,
+  //       max: 1000,
+  //     },
+  //     limit: {
+  //       current: 85,
+  //       max: 100,
+  //     },
+  //     latency: {
+  //       average: '120ms',
+  //       trend: -5,
+  //       min: '180ms',
+  //       max: '250ms'
+  //     }
+  //   },
+  //   middleware: {
+  //     limit: {
+  //       enabled: false,
+  //       value: 0
+  //     },
+  //     timeout: {
+  //       enabled: false,
+  //       value: 30
+  //     },
+  //     retries: {
+  //       enabled: false,
+  //       value: 3
+  //     },
+  //     throttling: {
+  //       enabled: false,
+  //       value: 100
+  //     },
+  //     logging: {
+  //       enabled: false,
+  //       type: 'inbound'
+  //     },
+  //     claims: {
+  //       enabled: false,
+  //       amount: 1000
+  //     }
+  //   }
+  // }
 })
 
 const testApi = () => {
@@ -101,6 +151,30 @@ const goToKeys = () => {
 
 <template>
   <Container>
+    <!-- Security Alert -->
+    <div v-if="apiDetails.isLeaked" class="mb-6 bg-amber-50 border-l-4 border-amber-400 p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-amber-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-amber-800">Security Alert</h3>
+          <div class="mt-2 text-sm text-amber-700">
+            <p>This API key has been detected in a public repository. For security reasons, you should revoke this key immediately and replace it with a new one.</p>
+          </div>
+          <div class="mt-4">
+            <div class="-mx-2 -my-1.5 flex">
+              <button type="button" class="bg-amber-50 px-2 py-1.5 rounded-md text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-amber-600">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Command Bar -->
     <div class="bg-white shadow-sm rounded-lg mb-6">
       <div class="px-4 py-3 sm:px-6 flex items-center justify-between">
@@ -153,6 +227,126 @@ const goToKeys = () => {
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- Analytics Cards -->
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+
+      <!-- Active Keys -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-500 truncate">Active Keys</p>
+              <p class="mt-1 text-3xl font-semibold text-gray-900">{{ apiDetails.analytics.tokens.current }}</p>
+            </div>         
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Rate -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-500 truncate">Error Rate</p>
+              <p class="mt-1 text-3xl font-semibold text-gray-900">{{ apiDetails.analytics.errorRate.current }}%</p>
+            </div>
+            <div class="ml-4">
+              <span :class="[
+                apiDetails.analytics.errorRate.trend < 0 ? 'text-green-600' : 'text-red-600',
+                'inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium'
+              ]">
+                {{ apiDetails.analytics.errorRate.trend > 0 ? '+' : '' }}{{ apiDetails.analytics.errorRate.trend }}%
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Response Time -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-500 truncate">Response Time</p>
+              <p class="mt-1 text-3xl font-semibold text-gray-900">{{ apiDetails.analytics.latency.average }}</p>
+            </div>
+            <div class="ml-4">
+              <span :class="[
+                apiDetails.analytics.latency.trend < 0 ? 'text-green-600' : 'text-red-600',
+                'inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium'
+              ]">
+                {{ apiDetails.analytics.latency.trend > 0 ? '+' : '' }}{{ apiDetails.analytics.latency.trend }}%
+              </span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>min: {{ apiDetails.analytics.latency.min }}</span>
+              <span>max: {{ apiDetails.analytics.latency.max }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       
+
+
+      <!-- Limit -->
+      <div v-if="apiDetails.middleware.limit.enabled" class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-500 truncate">Limit</p>
+              <div class="mt-1 flex items-baseline">
+                <p class="text-3xl font-semibold text-gray-900">{{ apiDetails.analytics.limit.current }}</p>
+                <p class="ml-2 text-sm text-gray-500">/{{ apiDetails.analytics.limit.max }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                class="bg-purple-600 h-2 rounded-full"
+                :style="{ width: `${(apiDetails.analytics.limit.current / apiDetails.analytics.limit.max) * 100}%` }"
+              ></div>
+            </div>
+            <p class="mt-1 text-xs text-gray-500 text-right">
+              {{ Math.round((apiDetails.analytics.limit.current / apiDetails.analytics.limit.max) * 100) }}%
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Claims Rate -->
+      <div v-if="apiDetails.middleware.claims.enabled" class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-500 truncate">Claims</p>
+              <div class="mt-1 flex items-baseline">
+                <p class="text-3xl font-semibold text-gray-900">{{ apiDetails.analytics.claims.current }}</p>
+                <p class="ml-2 text-sm text-gray-500">/{{ apiDetails.analytics.claims.max }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                class="bg-purple-600 h-2 rounded-full"
+                :style="{ width: `${(apiDetails.analytics.claims.current / apiDetails.analytics.claims.max) * 100}%` }"
+              ></div>
+            </div>
+            <p class="mt-1 text-xs text-gray-500 text-right">
+              {{ Math.round((apiDetails.analytics.claims.current / apiDetails.analytics.claims.max) * 100) }}%
+            </p>
+          </div>
+        </div>
+      </div>
+
+      
+
     </div>
 
     <!-- API Configuration -->
@@ -392,8 +586,7 @@ const goToKeys = () => {
                   </label>
                 </div>
               </div>
-              <div class="w-2/3 pl-4">
-                <select
+              <div class="w-2/3 pl-4"> <select
                   v-model="apiDetails.middleware.logging.type"
                   :disabled="!apiDetails.middleware.logging.enabled"
                   class="block w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-base text-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
