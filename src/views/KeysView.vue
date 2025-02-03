@@ -145,6 +145,12 @@ const revokeKey = (id: number) => {
 
     <!-- API Keys List -->
     <div class="mt-8 space-y-6">
+      <TransitionGroup
+        enter-from-class="opacity-0"
+        leave-to-class="opacity-0"
+        enter-active-class="transition duration-300 delay-300"
+        leave-active-class="transition duration-300"
+      >
       <div v-for="key in filteredKeys" :key="key.id" class="bg-white shadow rounded-lg overflow-hidden">
         <!-- Header -->
         <div class="px-6 py-4 border-b border-gray-200">
@@ -166,6 +172,7 @@ const revokeKey = (id: number) => {
         </div>
 
         <!-- Analytics Grid - Only show for active tokens -->
+        
         <div v-if="key.status === 'active'" class="p-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <!-- TTL -->
           <div class="bg-gray-50 rounded-lg p-4">
@@ -236,6 +243,7 @@ const revokeKey = (id: number) => {
           </div>
         </div>
       </div>
+      </TransitionGroup>
     </div>
   </Container>
 </template>

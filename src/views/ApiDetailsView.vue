@@ -290,10 +290,13 @@ const goToKeys = () => {
         </div>
       </div>
 
-       
-
-
       <!-- Limit -->
+      <Transition 
+        enter-from-class="opacity-0" 
+        leave-to-class="opacity-0" 
+        enter-active-class="transition duration-300" 
+        leave-active-class="transition duration-300"
+      >
       <div v-if="apiDetails.middleware.limit.enabled" class="bg-white overflow-hidden shadow rounded-lg">
         <div class="p-5">
           <div class="flex items-center">
@@ -318,8 +321,10 @@ const goToKeys = () => {
           </div>
         </div>
       </div>
+      </Transition>
 
       <!-- Claims Rate -->
+      <Transition  enter-from-class="opacity-0" leave-to-class="opacity-0" enter-active-class="transition duration-300" leave-active-class="transition duration-300">
       <div v-if="apiDetails.middleware.claims.enabled" class="bg-white overflow-hidden shadow rounded-lg">
         <div class="p-5">
           <div class="flex items-center">
@@ -344,9 +349,7 @@ const goToKeys = () => {
           </div>
         </div>
       </div>
-
-      
-
+      </Transition>
     </div>
 
     <!-- API Configuration -->
