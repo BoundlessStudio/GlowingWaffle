@@ -37,7 +37,7 @@ const configureApi = (id: number) => {
 <template>
   <Container>
     <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-semibold text-gray-900">APIs</h1>
+      <h1 class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">APIs</h1>
       <button
         class="bg-purple-900 hover:bg-purple-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
       >
@@ -47,38 +47,40 @@ const configureApi = (id: number) => {
 
     <!-- APIs Grid -->
     <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <div v-for="api in apis" :key="api.id" class="bg-white shadow rounded-lg overflow-hidden">
+      <div v-for="api in apis" :key="api.id" class="bg-white dark:bg-zinc-800 shadow rounded-lg overflow-hidden">
         <div class="p-6">
           <div class="space-y-4">
             <!-- Header with icon -->
             <div class="flex items-center space-x-3">
-              <div class="flex-shrink-0 w-8 h-8 bg-gray-100 text-black rounded flex justify-center items-center">
+              <div class="flex-shrink-0 w-8 h-8 bg-gray-100 dark:bg-zinc-700 text-black dark:text-white rounded flex justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
                 </svg>
               </div>
-              <h3 class="text-lg font-medium text-gray-900">{{ api.name }}</h3>
+              <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">{{ api.name }}</h3>
             </div>
 
             <!-- Card body -->
             <div class="space-y-3">
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-zinc-400">
                 <span class="font-medium">Base URL:</span>
-                <code class="ml-2 bg-gray-100 px-2 py-1 rounded text-xs">{{ api.baseUrl }}</code>
+                <code class="ml-2 bg-gray-100 dark:bg-zinc-700 px-2 py-1 rounded text-xs">{{ api.baseUrl }}</code>
               </p>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-zinc-400">
                 <span class="font-medium">TTL:</span>
                 <span class="ml-2">{{ api.ttl }}</span>
               </p>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-zinc-400">
                 <span class="font-medium">Usage:</span>
                 <span class="ml-2">{{ api.usage }}</span>
               </p>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-zinc-400">
                 <span class="font-medium">Status:</span>
                 <span class="ml-2">
                   <span :class="[
-                    api.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800',
+                    api.status === 'active' 
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200' 
+                      : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200',
                     'px-2 py-1 text-xs font-semibold rounded-full'
                   ]">
                     {{ api.status }}
@@ -91,7 +93,7 @@ const configureApi = (id: number) => {
             <div class="pt-2">
               <button 
                 @click="configureApi(api.id)"
-                class="w-full bg-purple-100 text-purple-900 hover:bg-purple-200 px-4 py-2 rounded text-sm font-medium transition-colors"
+                class="w-full bg-purple-100 dark:bg-purple-900/20 text-purple-900 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/30 px-4 py-2 rounded text-sm font-medium transition-colors"
               >
                 Configure
               </button>

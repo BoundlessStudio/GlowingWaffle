@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { useUserStore } from './stores/user'
 import NavBar from './components/NavBar.vue'
-
 const userStore = useUserStore()
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-zinc-900 transition-colors duration-200">
     <div v-if="userStore.isLoading" class="flex items-center justify-center min-h-screen">
-      <div class="text-lg font-semibold text-gray-700">Loading...</div>
+      <div class="text-lg font-semibold text-gray-700 dark:text-zinc-200">Loading...</div>
     </div>
     <div v-else class="min-h-screen">
       <NavBar />

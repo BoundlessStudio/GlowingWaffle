@@ -118,7 +118,7 @@ const revokeKey = (id: number) => {
   <Container>
     <div class="flex justify-between items-center">
       <div class="flex items-center space-x-4">
-        <h1 class="text-2xl font-semibold text-gray-900">Tokens</h1>
+        <h1 class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">Tokens</h1>
         <div class="flex items-center space-x-2 ml-4">
           <button
             v-for="status in ['active', 'revoked']"
@@ -126,8 +126,8 @@ const revokeKey = (id: number) => {
             @click="selectedStatus = status"
             :class="[
               selectedStatus === status
-                ? 'bg-purple-100 text-purple-900'
-                : 'bg-white text-gray-500 hover:text-gray-700',
+                ? 'bg-purple-100 dark:bg-purple-900/20 text-purple-900 dark:text-purple-300'
+                : 'bg-white dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-300',
               'px-3 py-1.5 rounded-md text-sm font-medium transition-colors'
             ]"
           >
@@ -151,19 +151,19 @@ const revokeKey = (id: number) => {
         enter-active-class="transition duration-300 delay-300"
         leave-active-class="transition duration-300"
       >
-      <div v-for="key in filteredKeys" :key="key.id" class="bg-white shadow rounded-lg overflow-hidden">
+      <div v-for="key in filteredKeys" :key="key.id" class="bg-white dark:bg-zinc-800 shadow rounded-lg overflow-hidden">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="text-lg font-medium text-gray-900">{{ key.name }}</h3>
-              <code class="mt-1 text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">{{ key.key }}</code>
+              <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100">{{ key.name }}</h3>
+              <code class="mt-1 text-sm text-gray-500 dark:text-zinc-400 bg-gray-100 dark:bg-zinc-700 px-2 py-1 rounded">{{ key.key }}</code>
             </div>
             <div class="flex items-center">
               <button
                 v-if="key.status === 'active'"
                 @click="revokeKey(key.id)"
-                class="text-red-600 hover:text-red-900 text-sm font-medium"
+                class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 text-sm font-medium"
               >
                 Revoke
               </button>
@@ -172,16 +172,15 @@ const revokeKey = (id: number) => {
         </div>
 
         <!-- Analytics Grid - Only show for active tokens -->
-        
         <div v-if="key.status === 'active'" class="p-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <!-- TTL -->
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h4 class="text-sm font-medium text-gray-900 mb-2">Time-to-Live</h4>
+          <div class="bg-gray-50 dark:bg-zinc-900/50 rounded-lg p-4">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-zinc-100 mb-2">Time-to-Live</h4>
             <div class="flex items-center justify-between">
-              <span class="text-2xl font-semibold text-gray-900">{{ key.analytics.ttl.remaining }}</span>
-              <span class="text-sm text-gray-500">of {{ key.analytics.ttl.total }}</span>
+              <span class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">{{ key.analytics.ttl.remaining }}</span>
+              <span class="text-sm text-gray-500 dark:text-zinc-400">of {{ key.analytics.ttl.total }}</span>
             </div>
-            <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+            <div class="mt-2 w-full bg-gray-200 dark:bg-zinc-700 rounded-full h-2">
               <div 
                 class="bg-purple-600 h-2 rounded-full"
                 :style="{ width: `${(parseInt(key.analytics.ttl.remaining) / parseInt(key.analytics.ttl.total)) * 100}%` }"
@@ -190,13 +189,13 @@ const revokeKey = (id: number) => {
           </div>
 
           <!-- Limits -->
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h4 class="text-sm font-medium text-gray-900 mb-2">Request Limits</h4>
+          <div class="bg-gray-50 dark:bg-zinc-900/50 rounded-lg p-4">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-zinc-100 mb-2">Request Limits</h4>
             <div class="flex items-center justify-between">
-              <span class="text-2xl font-semibold text-gray-900">{{ key.analytics.limits.current }}</span>
-              <span class="text-sm text-gray-500">of {{ key.analytics.limits.max }}/{{ key.analytics.limits.period }}</span>
+              <span class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">{{ key.analytics.limits.current }}</span>
+              <span class="text-sm text-gray-500 dark:text-zinc-400">of {{ key.analytics.limits.max }}/{{ key.analytics.limits.period }}</span>
             </div>
-            <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+            <div class="mt-2 w-full bg-gray-200 dark:bg-zinc-700 rounded-full h-2">
               <div 
                 class="bg-purple-600 h-2 rounded-full"
                 :style="{ width: `${(key.analytics.limits.current / key.analytics.limits.max) * 100}%` }"
@@ -205,13 +204,13 @@ const revokeKey = (id: number) => {
           </div>
 
           <!-- Timeout -->
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h4 class="text-sm font-medium text-gray-900 mb-2">Response Time</h4>
+          <div class="bg-gray-50 dark:bg-zinc-900/50 rounded-lg p-4">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-zinc-100 mb-2">Response Time</h4>
             <div class="flex items-center justify-between">
-              <span class="text-2xl font-semibold text-gray-900">{{ key.analytics.timeout.average }}</span>
-              <span class="text-sm text-gray-500">max {{ key.analytics.timeout.max }}</span>
+              <span class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">{{ key.analytics.timeout.average }}</span>
+              <span class="text-sm text-gray-500 dark:text-zinc-400">max {{ key.analytics.timeout.max }}</span>
             </div>
-            <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+            <div class="mt-2 w-full bg-gray-200 dark:bg-zinc-700 rounded-full h-2">
               <div 
                 class="bg-purple-600 h-2 rounded-full"
                 :style="{ width: `${(parseInt(key.analytics.timeout.average) / parseInt(key.analytics.timeout.max)) * 100}%` }"
@@ -220,13 +219,13 @@ const revokeKey = (id: number) => {
           </div>
 
           <!-- Throttling -->
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h4 class="text-sm font-medium text-gray-900 mb-2">Throttling</h4>
+          <div class="bg-gray-50 dark:bg-zinc-900/50 rounded-lg p-4">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-zinc-100 mb-2">Throttling</h4>
             <div class="flex items-center justify-between">
-              <span class="text-2xl font-semibold text-gray-900">{{ key.analytics.throttling.current }}</span>
-              <span class="text-sm text-gray-500">of {{ key.analytics.throttling.max }}/{{ key.analytics.throttling.period }}</span>
+              <span class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">{{ key.analytics.throttling.current }}</span>
+              <span class="text-sm text-gray-500 dark:text-zinc-400">of {{ key.analytics.throttling.max }}/{{ key.analytics.throttling.period }}</span>
             </div>
-            <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+            <div class="mt-2 w-full bg-gray-200 dark:bg-zinc-700 rounded-full h-2">
               <div 
                 class="bg-purple-600 h-2 rounded-full"
                 :style="{ width: `${(key.analytics.throttling.current / key.analytics.throttling.max) * 100}%` }"
@@ -236,8 +235,8 @@ const revokeKey = (id: number) => {
         </div>
 
         <!-- Additional Info -->
-        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
-          <div class="flex justify-between text-sm text-gray-500">
+        <div class="px-6 py-4 bg-gray-50 dark:bg-zinc-900/50 border-t border-gray-200 dark:border-zinc-700">
+          <div class="flex justify-between text-sm text-gray-500 dark:text-zinc-400">
             <span>Created: {{ key.created }}</span>
             <span>Last Used: {{ key.lastUsed }}</span>
           </div>

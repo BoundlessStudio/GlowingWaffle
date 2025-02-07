@@ -18,20 +18,20 @@ const recentActivity = ref([
 
 <template>
   <Container>
-    <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-zinc-100">Dashboard</h1>
     
     <!-- Stats Grid -->
     <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      <div v-for="item in stats" :key="item.name" class="bg-white overflow-hidden shadow rounded-lg">
+      <div v-for="item in stats" :key="item.name" class="bg-white dark:bg-zinc-800 shadow rounded-lg">
         <div class="p-5">
           <div class="flex items-center">
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-500 truncate">{{ item.name }}</p>
-              <p class="mt-1 text-3xl font-semibold text-gray-900">{{ item.value }}</p>
+              <p class="text-sm font-medium text-gray-500 dark:text-zinc-400 truncate">{{ item.name }}</p>
+              <p class="mt-1 text-3xl font-semibold text-gray-900 dark:text-zinc-100">{{ item.value }}</p>
             </div>
             <div class="ml-4">
               <span :class="[
-                item.changeType === 'increase' ? 'text-green-600' : 'text-red-600',
+                item.changeType === 'increase' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400',
                 'inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium'
               ]">
                 {{ item.change }}
@@ -44,14 +44,14 @@ const recentActivity = ref([
 
     <!-- Recent Activity -->
     <div class="mt-8">
-      <h2 class="text-lg font-medium text-gray-900">Recent Activity</h2>
-      <div class="mt-4 bg-white shadow rounded-lg">
-        <ul role="list" class="divide-y divide-gray-200">
+      <h2 class="text-lg font-medium text-gray-900 dark:text-zinc-100">Recent Activity</h2>
+      <div class="mt-4 bg-white dark:bg-zinc-800 shadow rounded-lg">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-zinc-700">
           <li v-for="activity in recentActivity" :key="activity.id" class="p-4">
             <div class="flex items-center space-x-4">
               <div class="flex-1">
-                <p class="text-sm text-gray-900">{{ activity.message }}</p>
-                <p class="text-sm text-gray-500">{{ activity.time }}</p>
+                <p class="text-sm text-gray-900 dark:text-zinc-100">{{ activity.message }}</p>
+                <p class="text-sm text-gray-500 dark:text-zinc-400">{{ activity.time }}</p>
               </div>
             </div>
           </li>
